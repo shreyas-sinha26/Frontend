@@ -7,7 +7,7 @@ import { useState } from "react";
 export function MeshChat() {
   const [message, setMessage] = useState("");
 
-  const messages = [
+  const [messages, setMessages] = useState([
     {
       id: 1,
       text: "Is anyone near the shelter on 5th Avenue?",
@@ -40,10 +40,24 @@ export function MeshChat() {
       relayPath: 2,
       status: "read",
     },
-  ];
+  ]);
+
+  const handleSendMessage = () => {
+    if (!message.trim()) return;
+    const newMsg = {
+      id: messages.length + 1,
+      text: message,
+      sender: "me",
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      relayPath: 1,
+      status: "delivered",
+    };
+    setMessages([...messages, newMsg]);
+    setMessage("");
+  };
 
   return (
-    <div className="min-h-screen flex flex-col p-4 pt-8">
+    <div className="flex flex-col p-4 pt-8 min-h-[calc(100vh-6rem)]">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -145,11 +159,13 @@ export function MeshChat() {
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder="Type a message..."
               className="flex-1 bg-transparent outline-none text-sm"
               style={{ color: "#F8FAFC" }}
             />
             <button
+              onClick={handleSendMessage}
               className="p-3 rounded-xl transition-all duration-300 hover:scale-105"
               style={{
                 background: message

@@ -7,7 +7,7 @@ import { useState } from "react";
 export function AIAssistant() {
   const [message, setMessage] = useState("");
 
-  const messages = [
+  const [messages, setMessages] = useState([
     {
       id: 1,
       text: "Hello! I'm your disaster assistance AI. How can I help you today?",
@@ -38,7 +38,32 @@ export function AIAssistant() {
       sender: "ai",
       time: "10:03 AM",
     },
-  ];
+  ]);
+
+  const [isTyping, setIsTyping] = useState(false);
+
+  const handleSendMessage = () => {
+    if (!message.trim()) return;
+    const newMsg = {
+      id: messages.length + 1,
+      text: message,
+      sender: "user",
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+    setMessages(prev => [...prev, newMsg]);
+    setMessage("");
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setMessages(prev => [...prev, {
+        id: prev.length + 1,
+        text: "I've received your request: \"" + newMsg.text + "\". Please note that I am an AI and can only provide general guidance. Contact emergency services immediately if you are in danger.",
+        sender: "ai",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      }]);
+      setIsTyping(false);
+    }, 1500);
+  };
 
   const quickActions = [
     "First Aid Guide",
@@ -48,7 +73,7 @@ export function AIAssistant() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col p-4 pt-8">
+    <div className="flex flex-col p-4 pt-8 min-h-[calc(100vh-6rem)]">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -174,6 +199,22 @@ export function AIAssistant() {
             </div>
           </motion.div>
         ))}
+        {isTyping && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex gap-3"
+          >
+            <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #3A86FF 0%, #22D3EE 100%)" }}>
+              <Bot className="w-5 h-5" style={{ color: "#FFF" }} />
+            </div>
+            <div className="flex-1 items-start flex flex-col">
+              <GlassCard className="px-4 py-3 max-w-[85%]" style={{ background: "rgba(28, 37, 65, 0.6)", borderColor: "rgba(255, 255, 255, 0.1)" }}>
+                <p className="text-sm" style={{ color: "#94A3B8" }}>Thinking...</p>
+              </GlassCard>
+            </div>
+          </motion.div>
+        )}
       </div>
 
       {/* Input */}
@@ -189,11 +230,13 @@ export function AIAssistant() {
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder="Ask me anything..."
               className="flex-1 bg-transparent outline-none text-sm"
               style={{ color: "#F8FAFC" }}
             />
             <button
+              onClick={handleSendMessage}
               className="p-3 rounded-xl transition-all duration-300 hover:scale-105"
               style={{
                 background: message

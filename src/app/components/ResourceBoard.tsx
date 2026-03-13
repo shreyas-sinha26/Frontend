@@ -7,7 +7,7 @@ import { useState } from "react";
 export function ResourceBoard() {
   const [activeTab, setActiveTab] = useState<"needs" | "has">("needs");
 
-  const needsData = [
+  const [needsData, setNeedsData] = useState([
     {
       id: 1,
       resource: "Medical Supplies",
@@ -40,9 +40,9 @@ export function ResourceBoard() {
       priority: "Low",
       time: "35 min ago",
     },
-  ];
+  ]);
 
-  const hasData = [
+  const [hasData, setHasData] = useState([
     {
       id: 1,
       resource: "Canned Food (20 units)",
@@ -75,9 +75,39 @@ export function ResourceBoard() {
       available: false,
       time: "1 hour ago",
     },
-  ];
+  ]);
 
   const data = activeTab === "needs" ? needsData : hasData;
+
+  const handleAdd = () => {
+    if (activeTab === "needs") {
+      const resource = prompt("What resource do you need?");
+      if (resource) {
+        setNeedsData([{
+          id: Date.now(),
+          resource,
+          user: "Me",
+          distance: "0 km",
+          priority: "High",
+          time: "Just now"
+        }, ...needsData]);
+      }
+    } else {
+      const resource = prompt("What resource do you have?");
+      if (resource) {
+        setHasData([{
+          id: Date.now(),
+          resource,
+          user: "Me",
+          distance: "0 km",
+          available: true,
+          time: "Just now"
+        }, ...hasData]);
+      }
+    }
+  };
+
+
 
   return (
     <div className="min-h-screen p-4 pt-8">
@@ -243,6 +273,7 @@ export function ResourceBoard() {
           className="mt-6"
         >
           <button
+            onClick={handleAdd}
             className="w-full py-4 px-6 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
             style={{
               background:

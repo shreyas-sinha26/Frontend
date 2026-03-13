@@ -37,40 +37,42 @@ export function Dashboard() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="col-span-2"
         >
-          <GlassCard className="p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <p className="text-sm mb-2" style={{ color: "#94A3B8" }}>
-                  Mesh Network
-                </p>
-                <h2 className="text-3xl" style={{ color: "#22D3EE", fontWeight: 700 }}>
-                  Active
-                </h2>
-              </div>
-              <div 
-                className="p-3 rounded-xl"
-                style={{
-                  background: "rgba(34, 211, 238, 0.1)",
-                }}
-              >
-                <Wifi className="w-6 h-6" style={{ color: "#22D3EE" }} />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255, 255, 255, 0.1)" }}>
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: "87%" }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                  className="h-full rounded-full"
+          <Link to="/map">
+            <GlassCard className="p-6 cursor-pointer hover:scale-[1.02] transition-all">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <p className="text-sm mb-2" style={{ color: "#94A3B8" }}>
+                    Mesh Network
+                  </p>
+                  <h2 className="text-3xl" style={{ color: "#22D3EE", fontWeight: 700 }}>
+                    Active
+                  </h2>
+                </div>
+                <div 
+                  className="p-3 rounded-xl"
                   style={{
-                    background: "linear-gradient(90deg, #22D3EE 0%, #3A86FF 100%)",
+                    background: "rgba(34, 211, 238, 0.1)",
                   }}
-                />
+                >
+                  <Wifi className="w-6 h-6" style={{ color: "#22D3EE" }} />
+                </div>
               </div>
-              <span className="text-sm" style={{ color: "#22D3EE" }}>87%</span>
-            </div>
-          </GlassCard>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255, 255, 255, 0.1)" }}>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: "87%" }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    className="h-full rounded-full"
+                    style={{
+                      background: "linear-gradient(90deg, #22D3EE 0%, #3A86FF 100%)",
+                    }}
+                  />
+                </div>
+                <span className="text-sm" style={{ color: "#22D3EE" }}>87%</span>
+              </div>
+            </GlassCard>
+          </Link>
         </motion.div>
 
         {/* Active Devices */}
@@ -79,22 +81,24 @@ export function Dashboard() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <GlassCard className="p-5 h-full">
-            <div 
-              className="p-2 rounded-lg mb-3 w-fit"
-              style={{
-                background: "rgba(58, 134, 255, 0.1)",
-              }}
-            >
-              <Users className="w-5 h-5" style={{ color: "#3A86FF" }} />
-            </div>
-            <p className="text-xs mb-1" style={{ color: "#94A3B8" }}>
-              Active Devices
-            </p>
-            <h3 className="text-2xl" style={{ color: "#F8FAFC", fontWeight: 700 }}>
-              42
-            </h3>
-          </GlassCard>
+          <Link to="/chat">
+            <GlassCard className="p-5 h-full cursor-pointer hover:scale-[1.02] transition-all">
+              <div 
+                className="p-2 rounded-lg mb-3 w-fit"
+                style={{
+                  background: "rgba(58, 134, 255, 0.1)",
+                }}
+              >
+                <Users className="w-5 h-5" style={{ color: "#3A86FF" }} />
+              </div>
+              <p className="text-xs mb-1" style={{ color: "#94A3B8" }}>
+                Active Devices
+              </p>
+              <h3 className="text-2xl" style={{ color: "#F8FAFC", fontWeight: 700 }}>
+                42
+              </h3>
+            </GlassCard>
+          </Link>
         </motion.div>
 
         {/* SOS Alerts */}
@@ -202,22 +206,24 @@ export function Dashboard() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <GlassCard className="p-5 h-full">
-            <div 
-              className="p-2 rounded-lg mb-3 w-fit"
-              style={{
-                background: "rgba(34, 211, 238, 0.1)",
-              }}
-            >
-              <Activity className="w-5 h-5" style={{ color: "#22D3EE" }} />
-            </div>
-            <p className="text-xs mb-1" style={{ color: "#94A3B8" }}>
-              System Health
-            </p>
-            <h3 className="text-xl" style={{ color: "#22D3EE", fontWeight: 700 }}>
-              Good
-            </h3>
-          </GlassCard>
+          <Link to="/ai">
+            <GlassCard className="p-5 h-full cursor-pointer hover:scale-[1.02] transition-all">
+              <div 
+                className="p-2 rounded-lg mb-3 w-fit"
+                style={{
+                  background: "rgba(34, 211, 238, 0.1)",
+                }}
+              >
+                <Activity className="w-5 h-5" style={{ color: "#22D3EE" }} />
+              </div>
+              <p className="text-xs mb-1" style={{ color: "#94A3B8" }}>
+                System Health
+              </p>
+              <h3 className="text-xl" style={{ color: "#22D3EE", fontWeight: 700 }}>
+                Good
+              </h3>
+            </GlassCard>
+          </Link>
         </motion.div>
 
         {/* Recent Alerts */}
